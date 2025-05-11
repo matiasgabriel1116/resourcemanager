@@ -18,19 +18,36 @@ function submit() {
 </script>
 
 <template>
-  <div>
-    <h1 class="text-xl font-bold mb-4">Edit Project</h1>
+  <Head title="Edit Project" />
 
-    <form @submit.prevent="submit" class="space-y-4">
+  <div class="max-w-2xl mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-6">Edit Project</h1>
+
+    <form @submit.prevent="submit" class="space-y-6">
       <div>
-        <label for="name" class="block">Project Name</label>
-        <input v-model="form.name" id="name" type="text" class="border p-2 rounded w-full" />
+        <label for="name" class="block text-sm font-medium text-gray-700">Project Name</label>
+        <input
+          v-model="form.name"
+          type="text"
+          id="name"
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+        />
         <div v-if="form.errors.name" class="text-red-500 text-sm mt-1">
           {{ form.errors.name }}
         </div>
       </div>
 
-      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Update</button>
+      <div class="flex items-center space-x-4">
+        <button
+          type="submit"
+          class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+          :disabled="form.processing"
+        >
+          Update
+        </button>
+        <Link href="/projects" class="text-gray-600 hover:underline">Cancel</Link>
+      </div>
     </form>
   </div>
 </template>
+

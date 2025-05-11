@@ -13,7 +13,7 @@ class ProjectRepository
             $query->where('name', 'like', '%' . $filters['search'] . '%');
         }
 
-        return $query->latest()->paginate(10)->appends($filters);
+        return $query->latest()->paginate(5)->appends($filters);
     }
 
     public function create(array $data): Project

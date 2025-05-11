@@ -23,39 +23,55 @@ function deleteProject(id) {
 
 // Handle pagination
 function goToPage(link) {
-  if (link.url) fetchProjects(link.url)
+  if (link.url) fetchProjects(false, link.url)
 }
 </script>
 
 <template>
-  <div>
-    <h1 class="text-xl font-bold mb-4">Projects</h1>
+  <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-2xl font-semibold text-gray-800 mb-6">Projects</h1>
 
-    <SearchInput v-model="filters.search" class="mb-4" />
+    <div class="mb-4">
+      <SearchInput v-model="filters.search" class="w-full" />
+    </div>
 
     <Link
       href="/projects/create"
-      class="bg-green-500 text-white px-4 py-2 rounded mb-4 inline-block"
+      class="inline-block bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-5 py-2 rounded-md shadow-sm transition duration-200 mb-6"
     >
-      Add Project
+      + Add Project
     </Link>
 
-    <div v-if="isLoading">Loading...</div>
+    <div v-if="isLoading" class="text-gray-500">Loading...</div>
 
-    <ul v-else class="space-y-2">
+    <ul v-else class="space-y-4">
       <li
         v-for="project in projects"
         :key="project.id"
-        class="flex justify-between items-center bg-gray-100 px-4 py-2 rounded shadow"
+        class="flex justify-between items-center bg-white border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"
       >
-        <span>{{ project.name }}</span>
+        <span class="text-gray-800 font-medium">{{ project.name }}</span>
         <div class="space-x-2">
-          <Link :href="`/projects/${project.id}/edit`" class="text-blue-600 hover:underline">Edit</Link>
-          <button @click="deleteProject(project.id)" class="text-red-600 hover:underline">Delete</button>
+          <Link
+            :href="`/projects/${project.id}/edit`"
+            class="text-blue-600 hover:text-blue-800 font-medium text-sm"
+          >
+            Edit
+          </Link>
+          <button
+            @click="deleteProject(project.id)"
+            class="text-red-600 hover:text-red-800 font-medium text-sm"
+          >
+            Delete
+          </button>
         </div>
       </li>
     </ul>
 
-    <Pagination :links="meta.links" @paginate="goToPage" />
+    <div class="mt-6">
+      <Pagination :links="meta.links" @paginate="goToPage" />
+    </div>
   </div>
 </template>
+
+
